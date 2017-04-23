@@ -27,6 +27,7 @@ To install this module, run the following commands:
 Usage
 ------------
 
+```perl
 my $druid = Perl::Druid->new(
 	api_url =>"https://druid-broker-hostname-goes-here/druid/v2/?pretty"
 );
@@ -36,7 +37,6 @@ my $aggregation_count = Perl::Druid::Aggregation->new(
 		name		=>	'count',
 		fieldName	=>	'count'
 );
-
 
 my $channel_filter = Perl::Druid::Filter::SelectorFilter->new(
 		dimension	=>	'channel',
@@ -70,7 +70,7 @@ $query = $query->query_type("timeseries")
 my $result = $druid->send($query);
 
 print STDOUT Data::Dumper::Dumper $result;
-
+```
 
 Todo
 ------------
