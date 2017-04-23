@@ -7,7 +7,7 @@ use Test::More;
 plan tests => 1;
 
 BEGIN {
-    use_ok( 'PerlDruid' ) || print "Bail out!\n";
+    use_ok( 'Perl::Druid' ) || print "Bail out!\n";
 }
 
 diag( "Testing PerlDruid $PerlDruid::VERSION, Perl $], $^X" );
