@@ -1,18 +1,20 @@
-PerlDruid
+# NAME
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
+PerlDruid - Perl client to Druid.io (http://druid.io)
 
-A README file is required for CPAN modules since CPAN extracts the README
-file from a module distribution so that people browsing the archive
-can use it to get an idea of the module's uses. It is usually a good idea
-to provide version information here so that people can decide whether
-fixes for the module are worth downloading.
+# VERSION
 
+version 0.001
 
-INSTALLATION
+Table of Contents:
+
+- [Installation & Introductory Examples](#installation)
+- [USAGE](#usage)
+- [TODO](#todo)
+- [License](#license)
+
+Installation
+------------
 
 To install this module, run the following commands:
 
@@ -21,29 +23,64 @@ To install this module, run the following commands:
 	make test
 	make install
 
-SUPPORT AND DOCUMENTATION
 
-After installing, you can find documentation for this module with the
-perldoc command.
+Usage
+------------
 
-    perldoc PerlDruid
+my $druid = Perl::Druid->new(
+	api_url =>"https://druid-broker-hostname-goes-here/druid/v2/?pretty"
+);
 
-You can also look for information at:
-
-    RT, CPAN's request tracker (report bugs here)
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=PerlDruid
-
-    AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/PerlDruid
-
-    CPAN Ratings
-        http://cpanratings.perl.org/d/PerlDruid
-
-    Search CPAN
-        http://search.cpan.org/dist/PerlDruid/
+my $aggregation_count = Perl::Druid::Aggregation->new(
+		type		=>	'longSum',
+		name		=>	'count',
+		fieldName	=>	'count'
+);
 
 
-LICENSE AND COPYRIGHT
+my $channel_filter = Perl::Druid::Filter::SelectorFilter->new(
+		dimension	=>	'channel',
+		value		=>	'phone'
+);
+
+my $source_filter = Perl::Druid::Filter::SelectorFilter->new(
+		dimension	=>	'source',
+		value		=>	'guest'
+);
+
+my $and_filter = Perl::Druid::Filter::Logical::AndFilter->new(
+		fields		=>	[ $channel_filter, $source_filter]
+);
+
+
+my $interval = Perl::Druid::Interval->new(
+		start		=>	'2017-04-02T00:00:00',
+		end			=>	'2017-04-05T00:00:00'
+);
+
+my $query = Perl::Druid::Query->new;
+$query = $query->query_type("timeseries")
+			->data_source("druid_data_source_name_here")
+			->granularity("day")
+		   	->descending("true")
+		   	->filter($and_filter)
+		   	->aggregations($aggregation_count)
+		   	->intervals($interval);			   
+			   
+my $result = $druid->send($query);
+
+print STDOUT Data::Dumper::Dumper $result;
+
+
+Todo
+------------
+* Testing
+* GroupBy, TopN queries
+* PostAggregations
+
+
+License And Copyright
+------------
 
 Copyright (C) 2017 Gaurav Kohli
 
@@ -82,4 +119,3 @@ YOUR LOCAL LAW. UNLESS REQUIRED BY LAW, NO COPYRIGHT HOLDER OR
 CONTRIBUTOR WILL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, OR
 CONSEQUENTIAL DAMAGES ARISING IN ANY WAY OUT OF THE USE OF THE PACKAGE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-

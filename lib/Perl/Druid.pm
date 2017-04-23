@@ -53,6 +53,7 @@ sub send {
         	 warn "error: $@";
         }
     }
+    return $response;
 }
 
 1;
