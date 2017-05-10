@@ -2,19 +2,11 @@ package Perl::Druid::Query;
 
 use Moo;
 
-sub query_type {
-    my $self = shift;
-    $self->{_query_type} = shift;
+use Perl::Druid::Interval;
+use Perl::Druid::Aggregation;
 
-    return $self;
-}
-
-sub data_source {
-    my $self = shift;
-    $self->{_data_source} = shift;
-
-    return $self;
-}
+has query_type 	=> (is => 'ro');
+has data_source => (is => 'ro');
 
 sub granularity {
     my $self = shift;
@@ -30,9 +22,15 @@ sub descending {
     return $self;
 }
 
-sub aggregations {
+sub aggregation {
     my $self = shift;
-    my $aggregation = shift;
+    my ($type, $name, $fieldName) = @_;
+
+	my $aggregation = Perl::Druid::Aggregation->new(
+			type		=>	$type,
+			name		=>	$name,
+			fieldName	=>	$fieldName
+	);
 
 	$self->{_aggregations} //= [];
 	push(@{ $self->{_aggregations} }, $aggregation->build);
@@ -50,31 +48,18 @@ sub filter {
 }
 
 
-sub intervals {
+sub interval {
 	my $self = shift;
-    my $interval = shift;
-    
+    my ($start, $end) = @_;
+
+	my $interval = Perl::Druid::Interval->new(start	=>	$start, end	=>	$end);
+   
     $self->{_intervals} //= [];
     push(@{ $self->{_intervals} }, $interval->build);
 
 	return $self;
 }
 
-sub gen_query {
-	my $self = shift;
-	
-	my %request_hash = (
-		'queryType' 	=> $self->{_query_type},
-		'dataSource' 	=> $self->{_data_source},
-		'granularity' 	=> $self->{_granularity},
-		'descending' 	=> $self->{_descending},
-		'aggregations' 	=> $self->{_aggregations},
-		'intervals' 	=> $self->{_intervals},
-		'filter' 		=> $self->{_filters}
-	);
-	
-	return \%request_hash;
-
-}
+sub gen_query { }
 
 1;
