@@ -32,42 +32,20 @@ my $druid = Perl::Druid->new(
 	api_url =>"https://druid-broker-hostname-goes-here/druid/v2/?pretty"
 );
 
-my $aggregation_count = Perl::Druid::Aggregation->new(
-		type		=>	'longSum',
-		name		=>	'count',
-		fieldName	=>	'count'
-);
+my $filter_factory = Perl::Druid::Factory::FilterFactory->new();
 
-my $channel_filter = Perl::Druid::Filter::SelectorFilter->new(
-		dimension	=>	'channel',
-		value		=>	'phone'
-);
-
-my $source_filter = Perl::Druid::Filter::SelectorFilter->new(
-		dimension	=>	'source',
-		value		=>	'guest'
-);
-
-my $and_filter = Perl::Druid::Filter::Logical::AndFilter->new(
-		fields		=>	[ $channel_filter, $source_filter]
-);
+my $query = Perl::Druid::Query::Timeseries->new( data_source => "cs-tickets-v1") ;
 
 
-my $interval = Perl::Druid::Interval->new(
-		start		=>	'2017-04-02T00:00:00',
-		end			=>	'2017-04-05T00:00:00'
-);
-
-my $query = Perl::Druid::Query->new;
-$query = $query->query_type("timeseries")
-			->data_source("druid_data_source_name_here")
-			->granularity("day")
+$query = $query
+			->granularity(GRANULARITY_DAY)
 		   	->descending("true")
-		   	->filter($and_filter)
-		   	->aggregations($aggregation_count)
-		   	->intervals($interval);			   
-			   
-my $result = $druid->send($query);
+		   	->filter($filter_factory->andFilter([
+				$filter_factory->selectorFilter('channel', 'phone'),
+				$filter_factory->selectorFilter('source', 'guest')		   	
+		   	]))
+		   	->aggregation('longSum', 'count', 'count')
+		   	->interval('2017-04-02T00:00:00', '2017-04-05T00:00:00');	
 
 print STDOUT Data::Dumper::Dumper $result;
 ```
