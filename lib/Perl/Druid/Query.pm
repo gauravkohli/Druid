@@ -17,8 +17,13 @@ sub granularity {
 
 sub descending {
     my $self = shift;
-    $self->{_descending} = shift;
+    $self->{_descending} = 'true';
+    return $self;
+}
 
+sub ascending {
+    my $self = shift;
+    $self->{_descending} = 'false';
     return $self;
 }
 
