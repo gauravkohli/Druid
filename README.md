@@ -38,14 +38,14 @@ my $query = Perl::Druid::Query::Timeseries->new( data_source => "cs-tickets-v1")
 
 
 $query = $query
-			->granularity(GRANULARITY_DAY)
-		   	->descending("true")
-		   	->filter($filter_factory->andFilter([
-				$filter_factory->selectorFilter('channel', 'phone'),
-				$filter_factory->selectorFilter('source', 'guest')		   	
+            ->granularity(GRANULARITY_DAY)
+            ->interval('2017-04-02T00:00:00', '2017-04-05T00:00:00')
+            ->filter($filter_factory->andFilter([
+                $filter_factory->selectorFilter('channel', 'phone'),
+                $filter_factory->selectorFilter('source', 'guest')
 		   	]))
-		   	->aggregation('longSum', 'count', 'count')
-		   	->interval('2017-04-02T00:00:00', '2017-04-05T00:00:00');	
+            ->aggregation(AGGREGATOR_LONG_SUM, 'count', 'count')
+            ->descending();
 
 print STDOUT Data::Dumper::Dumper $result;
 ```
