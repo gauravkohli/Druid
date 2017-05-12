@@ -5,7 +5,7 @@ use Moo;
 use JSON;
 use LWP::UserAgent;
 use HTTP::Request;
-use Perl::Druid::Util;
+use Perl::Druid::Util qw(iso8601_yyyy_mm_dd_hh_mm_ss);
 
 our $VERSION = '0.001';
 
@@ -46,7 +46,7 @@ sub send {
         eval {
             $response = decode_json($res->content) if $res->content ne "";
             map { 
-            	$_->{'timestamp'} =  Perl::Druid::Util->iso8601_yyyy_mm_dd_hh_mm_ss($_->{'timestamp'}) 
+                $_->{'timestamp'} =  iso8601_yyyy_mm_dd_hh_mm_ss($_->{'timestamp'})
             } @{$response};
             1;
         } or do {

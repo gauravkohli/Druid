@@ -10,7 +10,18 @@ my %constants;
 BEGIN {
     %constants = (
         Granularity => {
+            GRANULARITY_ALL             => 'all',
+            GRANULARITY_NONE            => 'none',
+            GRANULARITY_SECOND          => 'second',
+            GRANULARITY_MINUTE          => 'minute',
+            GRANULARITY_FIFTEEN_MINUTE  => 'fifteen_minute',
+            GRANULARITY_THIRTY_MINUTE   => 'thirty_minute',
+            GRANULARITY_HOUR            => 'hour',
             GRANULARITY_DAY             => 'day',
+            GRANULARITY_WEEK            => 'week',
+            GRANULARITY_MONTH           => 'month',
+            GRANULARITY_QUARTER         => 'quarter',
+            GRANULARITY_YEAR            => 'year',
         },
         Aggregators => {
             AGGREGATOR_COUNT			=> 'count',
