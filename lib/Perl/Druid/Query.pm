@@ -4,6 +4,7 @@ use Moo;
 
 use Perl::Druid::Interval;
 use Perl::Druid::Aggregation;
+use Perl::Druid::PostAggregator;
 
 has query_type 	=> (is => 'ro');
 has data_source => (is => 'ro');
@@ -39,6 +40,16 @@ sub aggregation {
 
 	$self->{_aggregations} //= [];
 	push(@{ $self->{_aggregations} }, $aggregation->build);
+
+    return $self;
+}
+
+sub post_aggregation {
+    my $self = shift;
+    my $post_aggregator = shift;
+
+	$self->{_post_aggregations} //= [];
+	push(@{ $self->{_post_aggregations} }, $post_aggregator->build);
 
     return $self;
 }

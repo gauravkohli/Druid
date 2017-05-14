@@ -35,6 +35,13 @@ BEGIN {
             AGGREGATOR_DOUBLE_LAST		=> 'doubleLast',
             AGGREGATOR_LONG_FIRST		=> 'longFirst',
             AGGREGATOR_LONG_LAST		=> 'longLast',
+        },
+        ArthimeticPostAggregator => {
+            POSTAGGREGATOR_SUM          => '+',
+            POSTAGGREGATOR_MINUS        => '-',
+            POSTAGGREGATOR_MULTIPLY     => '*',
+            POSTAGGREGATOR_DIVIDE       => '/',
+            POSTAGGREGATOR_QUOTIENT     => 'quotient',
         }
     );
 }
