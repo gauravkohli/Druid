@@ -1,7 +1,7 @@
-package Perl::Druid::Filter::Logical::NotFilter;
+package Perl::Druid::Filter::Logical::Not;
 use Moo;
 
-extends 'Perl::Druid::Filter::LogicalFilter';
+extends 'Perl::Druid::Filter::Logical';
 
 sub type 	{ 'not' }
 

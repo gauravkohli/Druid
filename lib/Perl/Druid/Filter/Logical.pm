@@ -1,9 +1,9 @@
-package Perl::Druid::Filter::LogicalFilter;
+package Perl::Druid::Filter::Logical;
 use Moo;
 
 extends 'Perl::Druid::Filter';
 
-has fields	=> (is => 'ro', default => sub { [] });
+has fields	=> (is  => 'ro', default => sub { [] });
 
 sub build {
 	my $self = shift;
