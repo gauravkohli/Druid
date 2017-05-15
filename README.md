@@ -32,29 +32,31 @@ my $druid = Perl::Druid->new(
 	api_url =>"https://druid-broker-hostname-goes-here/druid/v2/?pretty"
 );
 
-my $filter_factory = Perl::Druid::Factory::FilterFactory->new();
+my $filter_factory          = Perl::Druid::Factory::FilterFactory->new();
+my $post_aggregator_factory = Perl::Druid::Factory::PostAggregatorFactory->new();
 
 my $query = Perl::Druid::Query::Timeseries->new( data_source => "cs-tickets-v1") ;
 
-
 $query = $query
-            ->granularity(GRANULARITY_DAY)
-            ->interval('2017-04-02T00:00:00', '2017-04-05T00:00:00')
-            ->filter($filter_factory->andFilter([
-                $filter_factory->selectorFilter('channel', 'phone'),
-                $filter_factory->selectorFilter('source', 'guest')
+			->granularity(GRANULARITY_DAY)
+			->interval('2017-04-02 00:00:00', '2017-04-05 00:00:00')
+            ->filter($filter_factory->and([
+				$filter_factory->selector('channel', 'phone'),
+				$filter_factory->selector('source', 'guest')
 		   	]))
-            ->aggregation(AGGREGATOR_LONG_SUM, 'count', 'count')
+	        ->aggregation(AGGREGATOR_LONG_SUM, 'count', 'count')
+	        ->aggregation(AGGREGATOR_COUNT, 'rows', 'rows')
+	        ->post_aggregation($post_aggregator_factory->arithmetic("sample_divide",POSTAGGREGATOR_DIVIDE,[
+                        $post_aggregator_factory->fieldAccess("count","count"),
+                        $post_aggregator_factory->fieldAccess('rows','rows')
+              ]))
             ->descending();
-
-print STDOUT Data::Dumper::Dumper $result;
 ```
 
 Todo
 ------------
 * Testing
 * GroupBy, TopN queries
-* PostAggregations
 
 
 License And Copyright

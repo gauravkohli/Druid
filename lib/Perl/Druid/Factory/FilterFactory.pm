@@ -7,7 +7,7 @@ use Perl::Druid::Filter::Logical::And;
 use Perl::Druid::Filter::Logical::Or;
 use Perl::Druid::Filter::Logical::Not;
 
-sub selectorFilter {
+sub selector {
    my $self = shift;
    my ( $dimension, $value) = @_;
 
@@ -17,7 +17,7 @@ sub selectorFilter {
 	);
 }
 
-sub regexFilter {
+sub regex {
    my $self = shift;
    my ( $dimension, $pattern) = @_;
 
@@ -27,7 +27,7 @@ sub regexFilter {
 	);
 }
 
-sub andFilter {
+sub and {
 	my $self = shift;
 	my $fields = shift;
 
@@ -36,7 +36,7 @@ sub andFilter {
 	);
 }
 
-sub orFilter {
+sub or {
 	my $self = shift;
 	my $fields = shift;
 
@@ -45,7 +45,7 @@ sub orFilter {
 	);
 }
 
-sub notFilter {
+sub not {
 	my $self = shift;
 	my $fields = shift;
 
