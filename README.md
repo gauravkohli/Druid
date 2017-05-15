@@ -38,19 +38,30 @@ my $post_aggregator_factory = Perl::Druid::Factory::PostAggregatorFactory->new()
 my $query = Perl::Druid::Query::Timeseries->new( data_source => "cs-tickets-v1") ;
 
 $query = $query
-			->granularity(GRANULARITY_DAY)
-			->interval('2017-04-02 00:00:00', '2017-04-05 00:00:00')
+            ->granularity(DAY)
+            ->interval('2017-04-02 00:00:00', '2017-04-05 00:00:00')
             ->filter($filter_factory->and([
-				$filter_factory->selector('channel', 'phone'),
-				$filter_factory->selector('source', 'guest')
-		   	]))
-	        ->aggregation(AGGREGATOR_LONG_SUM, 'count', 'count')
-	        ->aggregation(AGGREGATOR_COUNT, 'rows', 'rows')
-	        ->post_aggregation($post_aggregator_factory->arithmetic("sample_divide",POSTAGGREGATOR_DIVIDE,[
-                        $post_aggregator_factory->fieldAccess("count","count"),
-                        $post_aggregator_factory->fieldAccess('rows','rows')
-              ]))
+                $filter_factory->selector('channel', 'phone'),
+                $filter_factory->selector('source', 'guest')
+            ]))
+            ->aggregation(LONG_SUM, 'count', 'count')
+            ->aggregation(COUNT, 'rows', 'rows')
+            ->post_aggregation($post_aggregator_factory->arithmetic("sample_divide",DIVIDE,[
+                $post_aggregator_factory->fieldAccess("count","count"),
+                $post_aggregator_factory->fieldAccess('rows','rows')
+            ]))
+            ->context(SKIP_EMPTY_BUCKETS,"true")
+            ->context(TIMEOUT,100)
+            ->context(PRIORITY,100)
             ->descending();
+
+my $result = $druid->send($query);
+
+if(!$druid->{error}){
+    print STDOUT Dumper $result;
+}else{
+    print STDOUT Dumper $druid->{error};
+}
 ```
 
 Todo

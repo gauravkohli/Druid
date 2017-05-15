@@ -76,6 +76,16 @@ sub interval {
 	return $self;
 }
 
+sub context {
+    my $self = shift;
+    my ($key, $value) = @_;
+
+    $self->{_context} //= {};
+    $self->{_context}->{$key} = $value;
+
+    return $self;
+}
+
 sub gen_query { }
 
 1;

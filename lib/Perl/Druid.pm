@@ -34,14 +34,13 @@ sub send {
 	my $self = shift;
 	my $query = shift;
 	
-	my $request_hash = $query->gen_query;
-    my $request_json = encode_json( $request_hash );
-
-    $self->_req->content( $request_json );
-
-    my $res = $self->_ua->request( $self->_req );	
+    $self->{error} = undef;
 
     my $response;
+    my $request_hash = $query->gen_query;
+    $self->_req->content( encode_json( $request_hash ) );
+
+    my $res = $self->_ua->request( $self->_req );	
     if ($res->is_success) {
         eval {
             $response = decode_json($res->content) if $res->content ne "";
@@ -50,10 +49,25 @@ sub send {
             } @{$response};
             1;
         } or do {
-        	 warn "error: $@";
+            $self->handle_error("500", "Parsing of the reponse failed");
+            warn "error: $@";
         }
+    }else{
+        $self->handle_error($res->code, $res->message, $res->content);
     }
     return $response;
+}
+
+sub handle_error {
+    my $self = shift;
+    my ($code, $message, $content) = @_;
+
+    $self->{error} = {
+        "code"      => $code,
+        "message"   => $message,
+        "content"   => $content
+    };
+
 }
 
 1;
