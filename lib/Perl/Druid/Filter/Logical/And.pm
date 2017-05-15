@@ -3,6 +3,6 @@ use Moo;
 
 extends 'Perl::Druid::Filter::Logical';
 
-sub type 	{ 'and' }
+sub type    { 'and' }
 
 1;

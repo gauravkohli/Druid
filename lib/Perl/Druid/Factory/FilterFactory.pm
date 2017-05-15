@@ -28,30 +28,30 @@ sub regex {
 }
 
 sub and {
-	my $self = shift;
-	my $fields = shift;
+    my $self = shift;
+    my $fields = shift;
 
-	return Perl::Druid::Filter::Logical::And->new(
-		fields		=>	 $fields
-	);
+    return Perl::Druid::Filter::Logical::And->new(
+        fields  =>	 $fields
+    );
 }
 
 sub or {
-	my $self = shift;
-	my $fields = shift;
+    my $self = shift;
+    my $fields = shift;
 
-	return Perl::Druid::Filter::Logical::Or->new(
-		fields		=>	 $fields
-	);
+    return Perl::Druid::Filter::Logical::Or->new(
+        fields  =>	 $fields
+    );
 }
 
 sub not {
-	my $self = shift;
-	my $fields = shift;
+    my $self = shift;
+    my $fields = shift;
 
-	return Perl::Druid::Filter::Logical::Not->new(
-		fields		=>	 $fields
-	);
+    return Perl::Druid::Filter::Logical::Not->new(
+        fields  =>	 $fields
+    );
 }
 
 1;

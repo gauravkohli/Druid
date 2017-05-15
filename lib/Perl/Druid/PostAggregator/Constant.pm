@@ -8,15 +8,15 @@ has value	=> (is  => 'ro');
 sub type 	{ 'constant' }
 
 sub build {
-	my $self = shift;
-	
-	my $filter = {
-		'type' 		=> $self->type,
-		'name' 		=> $self->name,
-		'value'     => $self->value,
-	};
+    my $self = shift;
 
-	return $filter;
+    my $filter = {
+        'type' 		=> $self->type,
+        'name' 		=> $self->name,
+        'value'     => $self->value,
+    };
+
+    return $filter;
 }
 
 1;

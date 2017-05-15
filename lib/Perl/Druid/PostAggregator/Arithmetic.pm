@@ -10,21 +10,21 @@ has ordering	=> (is  => 'ro', default => 'null');
 sub type 	{ 'arithmetic' }
 
 sub build {
-	my $self = shift;
-	
-	my $aggregation = {
-		'type' 		=> $self->type,
-		'name' 		=> $self->name,
-		'fn'        => $self->fn,
-		'fields'    => [],
-		'ordering'  => $self->ordering,
-	};
+    my $self = shift;
 
-	map { 
-		push @{$aggregation->{'fields'}}, $_->build;
-	}  @{$self->fields};
-	
-	return $aggregation;
+    my $aggregation = {
+        'type' 		=> $self->type,
+        'name' 		=> $self->name,
+        'fn'        => $self->fn,
+        'fields'    => [],
+        'ordering'  => $self->ordering,
+    };
+
+    map { 
+        push @{$aggregation->{'fields'}}, $_->build;
+    }  @{$self->fields};
+
+    return $aggregation;
 }
 
 1;

@@ -8,15 +8,15 @@ has fieldName	=> (is  => 'ro');
 sub type 	{ 'fieldAccess' }
 
 sub build {
-	my $self = shift;
-	
-	my $filter = {
-		'type' 		=> $self->type,
-		'name' 		=> $self->name,
-		'fieldName' => $self->fieldName,
-	};
+    my $self = shift;
 
-	return $filter;
+    my $filter = {
+        'type' 		=> $self->type,
+        'name' 		=> $self->name,
+        'fieldName' => $self->fieldName,
+    };
+
+    return $filter;
 }
 
 1;

@@ -32,14 +32,14 @@ sub aggregation {
     my $self = shift;
     my ($type, $name, $fieldName) = @_;
 
-	my $aggregation = Perl::Druid::Aggregation->new(
-			type		=>	$type,
-			name		=>	$name,
-			fieldName	=>	$fieldName
-	);
+    my $aggregation = Perl::Druid::Aggregation->new(
+	   type        =>	$type,
+	   name        =>	$name,
+	   fieldName   =>	$fieldName
+    );
 
-	$self->{_aggregations} //= [];
-	push(@{ $self->{_aggregations} }, $aggregation->build);
+    $self->{_aggregations} //= [];
+    push(@{ $self->{_aggregations} }, $aggregation->build);
 
     return $self;
 }
@@ -48,8 +48,8 @@ sub post_aggregation {
     my $self = shift;
     my $post_aggregator = shift;
 
-	$self->{_post_aggregations} //= [];
-	push(@{ $self->{_post_aggregations} }, $post_aggregator->build);
+    $self->{_post_aggregations} //= [];
+    push(@{ $self->{_post_aggregations} }, $post_aggregator->build);
 
     return $self;
 }
@@ -58,22 +58,22 @@ sub filter {
     my $self = shift;
     my $filter = shift;
 
-	$self->{_filters} = $filter->build;
+    $self->{_filters} = $filter->build;
 
     return $self;
 }
 
 
 sub interval {
-	my $self = shift;
+    my $self = shift;
     my ($start, $end) = @_;
 
-	my $interval = Perl::Druid::Interval->new(start	=>	$start, end	=>	$end);
+    my $interval = Perl::Druid::Interval->new(start	=>	$start, end	=>	$end);
    
     $self->{_intervals} //= [];
     push(@{ $self->{_intervals} }, $interval->build);
 
-	return $self;
+    return $self;
 }
 
 sub context {

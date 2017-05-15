@@ -7,15 +7,15 @@ sub type 	{ 'regex' }
 has pattern	=> (is => 'ro');
 
 sub build {
-	my $self = shift;
-	
-	my $filter = {
-		'type' 		=> $self->type,
-		'dimension' => $self->dimension,
-		'pattern' 	=> $self->pattern,
-	};
+    my $self = shift;
 
-	return $filter;
+    my $filter = {
+        'type' 		=> $self->type,
+        'dimension' => $self->dimension,
+        'pattern' 	=> $self->pattern,
+    };
+
+    return $filter;
 }
 
 1;

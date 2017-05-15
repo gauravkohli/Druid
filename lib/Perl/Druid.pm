@@ -11,11 +11,11 @@ our $VERSION = '0.001';
 
 has api_url => (is	=> 'ro');
 
-has _ua    	=> (is => 'rwp', lazy => 1);
+has _ua     => (is => 'rwp', lazy => 1);
 has _req    => (is => 'rwp', lazy => 1);
 
-sub _set_ua		{ $_[0]->{_ua}    = $_[1] }
-sub _set_req	{ $_[0]->{_req } = $_[1] }
+sub _set_ua     { $_[0]->{_ua}    = $_[1] }
+sub _set_req    { $_[0]->{_req } = $_[1] }
 
 sub BUILD {
     my $self = shift;
@@ -31,8 +31,8 @@ sub BUILD {
 }
 
 sub send {
-	my $self = shift;
-	my $query = shift;
+    my $self = shift;
+    my $query = shift;
 	
     $self->{error} = undef;
 

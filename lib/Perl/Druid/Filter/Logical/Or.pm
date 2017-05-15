@@ -3,6 +3,6 @@ use Moo;
 
 extends 'Perl::Druid::Filter::Logical';
 
-sub type 	{ 'or' }
+sub type    { 'or' }
 
 1;

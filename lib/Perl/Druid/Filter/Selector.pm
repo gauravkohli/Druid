@@ -7,15 +7,15 @@ sub type 	{ 'selector' }
 has value	=> (is => 'ro');
 
 sub build {
-	my $self = shift;
-	
-	my $filter = {
-		'type' 		=> $self->type,
-		'dimension' => $self->dimension,
-		'value' 	=> $self->value,
-	};
+    my $self = shift;
 
-	return $filter;
+    my $filter = {
+        'type' 		=> $self->type,
+        'dimension' => $self->dimension,
+        'value' 	=> $self->value,
+    };
+
+    return $filter;
 }
 
 1;
