@@ -2,26 +2,19 @@ package Perl::Druid::Query::Timeseries;
 use Moo;
 
 extends 'Perl::Druid::Query';
+use Hash::Merge qw( merge );
 
 sub query_type 	{ 'timeseries' }
 
 sub gen_query {
     my $self = shift;
+    my $request_hash =  $self->SUPER::gen_query();
 
-    my %request_hash = (
-        'queryType'           => $self->query_type,
-        'dataSource'          => $self->data_source,
-        'granularity'         => $self->{_granularity},
-        'descending'          => $self->{_descending},
-        'aggregations' 	      => $self->{_aggregations},
-        'postAggregations'    => $self->{_post_aggregations},
-        'intervals'           => $self->{_intervals},
-        'filter'              => $self->{_filters},
-        'context'             => $self->{_context}
+    my %timeseries_request_hash = (
+        'descending'    => $self->{_descending},
     );
 
-    return \%request_hash;
-
+    return merge($request_hash, \%timeseries_request_hash);
 }
 
 1;

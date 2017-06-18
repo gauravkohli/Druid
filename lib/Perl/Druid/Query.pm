@@ -5,6 +5,7 @@ use Moo;
 use Perl::Druid::Interval;
 use Perl::Druid::Aggregation;
 use Perl::Druid::PostAggregator;
+use Perl::Druid::LimitSpec;
 
 has query_type 	=> (is => 'ro');
 has data_source => (is => 'ro');
@@ -86,6 +87,62 @@ sub context {
     return $self;
 }
 
-sub gen_query { }
+sub dimension {
+    my $self = shift;
+    $self->{_dimension} = shift;
+
+    return $self;
+}
+
+sub group_by_dimensions {
+    my $self = shift;
+    $self->{_group_by_dimensions} = shift;
+
+    return $self;
+}
+
+sub limit_spec {
+    my $self = shift;
+    my ($limit, $columns) = @_;
+
+    my $limit_spec = Perl::Druid::LimitSpec->new(
+        limit   => $limit,
+        columns => $columns
+    );
+    $self->{_limit_spec} = $limit_spec->build;
+
+    return $self;
+}
+
+sub threshold {
+    my $self = shift;
+    $self->{_threshold} = shift;
+
+    return $self;
+}
+
+sub metric {
+    my $self = shift;
+    $self->{_metric} = shift;
+
+    return $self;
+}
+
+sub gen_query {
+    my $self = shift;
+
+    my %request_hash = (
+        'queryType'         => $self->query_type,
+        'dataSource'        => $self->data_source,
+        'granularity'       => $self->{_granularity},
+        'aggregations' 	    => $self->{_aggregations},
+        'postAggregations'  => $self->{_post_aggregations},
+        'intervals'         => $self->{_intervals},
+        'filter'            => $self->{_filters},
+        'context'           => $self->{_context}
+    );
+
+    return \%request_hash;
+}
 
 1;
