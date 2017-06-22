@@ -1,6 +1,6 @@
 # NAME
 
-PerlDruid - Perl client to Druid.io (http://druid.io)
+Druid - Perl client to Druid.io (http://druid.io)
 
 # VERSION
 
@@ -28,14 +28,14 @@ Usage
 ------------
 
 ```perl
-my $druid = Perl::Druid->new(
+my $druid = Druid->new(
 	api_url =>"https://druid-broker-hostname-goes-here/druid/v2/?pretty"
 );
 
-my $filter_factory          = Perl::Druid::Factory::FilterFactory->new();
-my $post_aggregator_factory = Perl::Druid::Factory::PostAggregatorFactory->new();
+my $filter_factory          = Druid::Factory::FilterFactory->new();
+my $post_aggregator_factory = Druid::Factory::PostAggregatorFactory->new();
 
-my $query = Perl::Druid::Query::Timeseries->new( data_source => "cs-tickets-v1") ;
+my $query = Druid::Query::Timeseries->new( data_source => "cs-tickets-v1") ;
 
 $query = $query
             ->granularity(DAY)
@@ -64,11 +64,39 @@ if(!$druid->{error}){
 }
 ```
 
+```
+$query = Druid::Query::GroupBy->new( data_source => "cs-tickets-v1") ;
+
+
+$query = $query
+            ->granularity(DAY)
+            ->interval('2017-04-02 00:00:00', '2017-04-05 00:00:00')
+            ->dimension('category_column')
+            ->threshold(5)
+            ->metric('count')
+            ->filter($filter_factory->and([
+                $filter_factory->selector('channel', 'phone'),
+                $filter_factory->selector('source', 'guest')
+            ]))
+            ->aggregation(LONG_SUM, 'count', 'count')
+            ->aggregation(COUNT, 'rows', 'rows')
+            ->post_aggregation($post_aggregator_factory->arithmetic("sample_divide",DIVIDE,[
+                $post_aggregator_factory->fieldAccess("count","count"),
+                $post_aggregator_factory->fieldAccess('rows','rows')
+            ]))
+            ->context(SKIP_EMPTY_BUCKETS,"true")
+            ->context(TIMEOUT,100)
+            ->context(PRIORITY,100);
+
+```
+
 Todo
 ------------
 * Testing
-* GroupBy, TopN queries
-
+* Metadata Queries
+* Search Queries
+* Query Cancellation
+* Admin tasks
 
 License And Copyright
 ------------

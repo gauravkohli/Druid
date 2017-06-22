@@ -1,7 +1,7 @@
-package Perl::Druid::PostAggregator::Constant;
+package Druid::PostAggregator::Constant;
 use Moo;
 
-extends 'Perl::Druid::PostAggregator';
+extends 'Druid::PostAggregator';
 
 has value	=> (is  => 'ro');
 

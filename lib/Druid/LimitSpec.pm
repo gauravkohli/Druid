@@ -1,4 +1,4 @@
-package Perl::Druid::LimitSpec;
+package Druid::LimitSpec;
 
 use Moo;
 

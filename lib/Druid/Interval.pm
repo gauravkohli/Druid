@@ -1,7 +1,7 @@
-package Perl::Druid::Interval;
+package Druid::Interval;
 
 use Moo;
-use Perl::Druid::Util qw(yyyy_mm_dd_hh_mm_ss_iso8601);
+use Druid::Util qw(yyyy_mm_dd_hh_mm_ss_iso8601);
 
 has start	=> (is => 'ro');
 has end		=> (is => 'ro');

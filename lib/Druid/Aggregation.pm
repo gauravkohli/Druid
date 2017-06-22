@@ -1,4 +1,4 @@
-package Perl::Druid::Aggregation;
+package Druid::Aggregation;
 
 use Moo;
 

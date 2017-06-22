@@ -4,10 +4,10 @@ use warnings;
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
-    NAME             => 'PerlDruid',
+    NAME             => 'Druid',
     AUTHOR           => q{Gaurav Kohli <gaurav.in@gmail.com>},
-    VERSION_FROM     => 'lib/Perl/Druid.pm',
-    ABSTRACT_FROM    => 'lib/Perl/Druid.pm',
+    VERSION_FROM     => 'lib/Druid.pm',
+    ABSTRACT_FROM    => 'lib/Druid.pm',
     LICENSE          => 'artistic_2',
     PL_FILES         => {},
     MIN_PERL_VERSION => 5.006,
@@ -22,5 +22,5 @@ WriteMakefile(
         #'Foo::Bar::Module' => 5.0401,
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean => { FILES => 'PerlDruid-*' },
+    clean => { FILES => 'Druid-*' },
 );

@@ -1,11 +1,11 @@
-package Perl::Druid;
+package Druid;
 
 
 use Moo;
 use JSON;
 use LWP::UserAgent;
 use HTTP::Request;
-use Perl::Druid::Util qw(iso8601_yyyy_mm_dd_hh_mm_ss);
+use Druid::Util qw(iso8601_yyyy_mm_dd_hh_mm_ss);
 
 our $VERSION = '0.001';
 

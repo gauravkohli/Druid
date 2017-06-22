@@ -1,11 +1,11 @@
-package Perl::Druid::Query;
+package Druid::Query;
 
 use Moo;
 
-use Perl::Druid::Interval;
-use Perl::Druid::Aggregation;
-use Perl::Druid::PostAggregator;
-use Perl::Druid::LimitSpec;
+use Druid::Interval;
+use Druid::Aggregation;
+use Druid::PostAggregator;
+use Druid::LimitSpec;
 
 has query_type 	=> (is => 'ro');
 has data_source => (is => 'ro');
@@ -33,7 +33,7 @@ sub aggregation {
     my $self = shift;
     my ($type, $name, $fieldName) = @_;
 
-    my $aggregation = Perl::Druid::Aggregation->new(
+    my $aggregation = Druid::Aggregation->new(
 	   type        =>	$type,
 	   name        =>	$name,
 	   fieldName   =>	$fieldName
@@ -69,7 +69,7 @@ sub interval {
     my $self = shift;
     my ($start, $end) = @_;
 
-    my $interval = Perl::Druid::Interval->new(start	=>	$start, end	=>	$end);
+    my $interval = Druid::Interval->new(start	=>	$start, end	=>	$end);
    
     $self->{_intervals} //= [];
     push(@{ $self->{_intervals} }, $interval->build);
@@ -105,7 +105,7 @@ sub limit_spec {
     my $self = shift;
     my ($limit, $columns) = @_;
 
-    my $limit_spec = Perl::Druid::LimitSpec->new(
+    my $limit_spec = Druid::LimitSpec->new(
         limit   => $limit,
         columns => $columns
     );

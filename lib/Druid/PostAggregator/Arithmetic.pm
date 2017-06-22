@@ -1,7 +1,7 @@
-package Perl::Druid::PostAggregator::Arithmetic;
+package Druid::PostAggregator::Arithmetic;
 use Moo;
 
-extends 'Perl::Druid::PostAggregator';
+extends 'Druid::PostAggregator';
 
 has fn	        => (is	=> 'ro');
 has fields	    => (is  => 'ro', default => sub { [] });

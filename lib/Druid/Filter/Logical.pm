@@ -1,7 +1,7 @@
-package Perl::Druid::Filter::Logical;
+package Druid::Filter::Logical;
 use Moo;
 
-extends 'Perl::Druid::Filter';
+extends 'Druid::Filter';
 
 has fields	=> (is  => 'ro', default => sub { [] });
 

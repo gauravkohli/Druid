@@ -1,7 +1,7 @@
-package Perl::Druid::PostAggregator::FieldAccess;
+package Druid::PostAggregator::FieldAccess;
 use Moo;
 
-extends 'Perl::Druid::PostAggregator';
+extends 'Druid::PostAggregator';
 
 has fieldName	=> (is  => 'ro');
 

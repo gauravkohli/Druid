@@ -1,4 +1,4 @@
-package Perl::Druid::Util;
+package Druid::Util;
 
 use DateTime;
 

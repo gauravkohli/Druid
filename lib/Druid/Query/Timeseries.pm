@@ -1,7 +1,7 @@
-package Perl::Druid::Query::Timeseries;
+package Druid::Query::Timeseries;
 use Moo;
 
-extends 'Perl::Druid::Query';
+extends 'Druid::Query';
 use Hash::Merge qw( merge );
 
 sub query_type 	{ 'timeseries' }

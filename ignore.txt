@@ -14,5 +14,5 @@ inc/
 nytprof.out
 pod2htm*.tmp
 pm_to_blib
-PerlDruid-*
-PerlDruid-*.tar.gz
+Druid-*
+Druid-*.tar.gz

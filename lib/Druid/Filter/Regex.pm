@@ -1,10 +1,10 @@
-package Perl::Druid::Filter::Selector;
+package Druid::Filter::Regex;
 use Moo;
 
-extends 'Perl::Druid::Filter';
+extends 'Druid::Filter';
 
-sub type 	{ 'selector' }
-has value	=> (is => 'ro');
+sub type 	{ 'regex' }
+has pattern	=> (is => 'ro');
 
 sub build {
     my $self = shift;
@@ -12,7 +12,7 @@ sub build {
     my $filter = {
         'type' 		=> $self->type,
         'dimension' => $self->dimension,
-        'value' 	=> $self->value,
+        'pattern' 	=> $self->pattern,
     };
 
     return $filter;

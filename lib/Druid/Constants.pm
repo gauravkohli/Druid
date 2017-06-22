@@ -1,4 +1,4 @@
-package Perl::Druid::Constants;
+package Druid::Constants;
 
 use strict;
 use warnings;

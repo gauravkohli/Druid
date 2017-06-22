@@ -1,4 +1,4 @@
-package Perl::Druid::PostAggregator;
+package Druid::PostAggregator;
 
 use Moo;
 

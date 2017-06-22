@@ -1,7 +1,7 @@
-package Perl::Druid::Query::TopN;
+package Druid::Query::TopN;
 use Moo;
 
-extends 'Perl::Druid::Query';
+extends 'Druid::Query';
 use Hash::Merge qw( merge );
 
 sub query_type 	{ 'topN' }

@@ -1,4 +1,4 @@
-package Perl::Druid::Filter;
+package Druid::Filter;
 
 use Moo;
 
