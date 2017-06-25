@@ -64,30 +64,34 @@ if(!$druid->{error}){
 }
 ```
 
+Sample GroupBy Query
 ```
 $query = Druid::Query::GroupBy->new( data_source => "cs-tickets-v1") ;
 
-
 $query = $query
-            ->granularity(DAY)
+            ->granularity(ALL)
             ->interval('2017-04-02 00:00:00', '2017-04-05 00:00:00')
-            ->dimension('category_column')
+            ->group_by_dimensions(['channel', 'source'])
+            ->threshold('category')
             ->threshold(5)
             ->metric('count')
-            ->filter($filter_factory->and([
-                $filter_factory->selector('channel', 'phone'),
-                $filter_factory->selector('source', 'guest')
-            ]))
             ->aggregation(LONG_SUM, 'count', 'count')
-            ->aggregation(COUNT, 'rows', 'rows')
-            ->post_aggregation($post_aggregator_factory->arithmetic("sample_divide",DIVIDE,[
-                $post_aggregator_factory->fieldAccess("count","count"),
-                $post_aggregator_factory->fieldAccess('rows','rows')
-            ]))
-            ->context(SKIP_EMPTY_BUCKETS,"true")
-            ->context(TIMEOUT,100)
-            ->context(PRIORITY,100);
+            ->aggregation(COUNT, 'rows', 'rows');
 
+```
+
+Sample TopN Query
+
+```
+ $query = $query
+             ->granularity(ALL)
+             ->interval('2017-04-02 00:00:00', '2017-04-05 00:00:00')
+             ->dimension('category')
+             ->threshold(5)
+             ->metric('count')
+             ->aggregation(LONG_SUM, 'count', 'count');
+
+$result = $druid->send($query);
 ```
 
 Todo
