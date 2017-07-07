@@ -3,24 +3,24 @@ use Moo;
 
 extends 'Druid::PostAggregator';
 
-has fn	        => (is	=> 'ro');
-has fields	    => (is  => 'ro', default => sub { [] });
-has ordering	=> (is  => 'ro', default => 'null');
+has fn       => (is => 'ro');
+has fields   => (is => 'ro', default => sub { [] });
+has ordering => (is => 'ro', default => 'null');
 
-sub type 	{ 'arithmetic' }
+sub type { 'arithmetic' }
 
 sub build {
     my $self = shift;
 
     my $aggregation = {
-        'type' 		=> $self->type,
-        'name' 		=> $self->name,
+        'type'      => $self->type,
+        'name'      => $self->name,
         'fn'        => $self->fn,
         'fields'    => [],
         'ordering'  => $self->ordering,
     };
 
-    map { 
+    map {
         push @{$aggregation->{'fields'}}, $_->build;
     }  @{$self->fields};
 

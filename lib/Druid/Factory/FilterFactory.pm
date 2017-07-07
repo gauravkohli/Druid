@@ -12,9 +12,9 @@ sub selector {
    my ( $dimension, $value) = @_;
 
    return Druid::Filter::Selector->new(
-		dimension	=>	$dimension,
-		value		=>	$value
-	);
+        dimension => $dimension,
+        value     => $value
+    );
 }
 
 sub regex {
@@ -22,9 +22,9 @@ sub regex {
    my ( $dimension, $pattern) = @_;
 
    return Druid::Filter::Regex->new(
-		dimension	=>	$dimension,
-		pattern		=>	$pattern
-	);
+        dimension => $dimension,
+        pattern   => $pattern
+    );
 }
 
 sub and {
@@ -32,7 +32,7 @@ sub and {
     my $fields = shift;
 
     return Druid::Filter::Logical::And->new(
-        fields  =>	 $fields
+        fields => $fields
     );
 }
 
@@ -41,7 +41,7 @@ sub or {
     my $fields = shift;
 
     return Druid::Filter::Logical::Or->new(
-        fields  =>	 $fields
+        fields => $fields
     );
 }
 
@@ -50,7 +50,7 @@ sub not {
     my $fields = shift;
 
     return Druid::Filter::Logical::Not->new(
-        fields  =>	 $fields
+        fields => $fields
     );
 }
 

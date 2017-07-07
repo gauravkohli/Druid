@@ -4,7 +4,7 @@ use Moo;
 extends 'Druid::Query';
 use Hash::Merge qw( merge );
 
-sub query_type 	{ 'topN' }
+sub query_type { 'topN' }
 
 sub gen_query {
     my $self = shift;

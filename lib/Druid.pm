@@ -9,42 +9,45 @@ use Druid::Util qw(iso8601_yyyy_mm_dd_hh_mm_ss);
 
 our $VERSION = '0.001';
 
-has api_url => (is	=> 'ro');
+has 'api_url' => (
+    is    => 'ro',
+);
 
-has _ua     => (is => 'rwp', lazy => 1);
-has _req    => (is => 'rwp', lazy => 1);
+has 'ua' => (
+    'is'      => 'ro',
+    'default' => sub {
+        my $self = shift;
+        my $ua   = LWP::UserAgent->new();
+        $ua->ssl_opts( 'verify_hostname' => 0 );
+        return $ua;
+    },
+};
 
-sub _set_ua     { $_[0]->{_ua}    = $_[1] }
-sub _set_req    { $_[0]->{_req } = $_[1] }
-
-sub BUILD {
-    my $self = shift;
-    
-    my $ua	= LWP::UserAgent->new();
-    my $req	= HTTP::Request->new( 'POST' => $self->api_url );
-
-    $ua->ssl_opts( verify_hostname => 0 );
-    $req->header( 'Content-Type' => 'application/json' );
-    
-    $self->_set_ua( $ua );
-    $self->_set_req( $req );
-}
+has 'req' => (
+    'is'      => 'ro',
+    'lazy'    => 1,
+    'default' => sub {
+        my $req    = HTTP::Request->new( 'POST' => $self->api_url );
+        $req->header( 'Content-Type' => 'application/json' );
+        return $req;
+    },
+);
 
 sub send {
     my $self = shift;
     my $query = shift;
-	
+
     $self->{error} = undef;
 
     my $response;
     my $request_hash = $query->gen_query;
     $self->_req->content( encode_json( $request_hash ) );
 
-    my $res = $self->_ua->request( $self->_req );	
+    my $res = $self->_ua->request( $self->_req );
     if ($res->is_success) {
         eval {
             $response = decode_json($res->content) if $res->content ne "";
-            map { 
+            map {
                 $_->{'timestamp'} =  iso8601_yyyy_mm_dd_hh_mm_ss($_->{'timestamp'})
             } @{$response};
             1;
@@ -85,7 +88,7 @@ Version 0.001
 =cut
 
 our $VERSION = '0.001';
-	
+
 =head1 AUTHOR
 
 Gaurav Kohli, C<< <gaurav.in at gmail.com> >>

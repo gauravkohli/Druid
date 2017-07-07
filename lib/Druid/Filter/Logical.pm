@@ -3,17 +3,17 @@ use Moo;
 
 extends 'Druid::Filter';
 
-has fields	=> (is  => 'ro', default => sub { [] });
+has fields => (is => 'ro', default => sub { [] });
 
 sub build {
     my $self = shift;
 
     my $filter = {
-        'type'      => $self->type,
-        'fields'    => []
+        'type'   => $self->type,
+        'fields' => []
     };
 
-    map { 
+    map {
         push @{$filter->{'fields'}}, $_->build;
     }  @{$self->fields};
 
