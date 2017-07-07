@@ -10,7 +10,7 @@ use Druid::Util qw(iso8601_yyyy_mm_dd_hh_mm_ss);
 our $VERSION = '0.001';
 
 has 'api_url' => (
-    is    => 'ro',
+    'is' => 'ro',
 );
 
 has 'ua' => (
@@ -21,13 +21,14 @@ has 'ua' => (
         $ua->ssl_opts( 'verify_hostname' => 0 );
         return $ua;
     },
-};
+);
 
 has 'req' => (
     'is'      => 'ro',
     'lazy'    => 1,
     'default' => sub {
-        my $req    = HTTP::Request->new( 'POST' => $self->api_url );
+        my $self = shift;
+        my $req  = HTTP::Request->new( 'POST' => $self->api_url );
         $req->header( 'Content-Type' => 'application/json' );
         return $req;
     },
@@ -41,9 +42,9 @@ sub send {
 
     my $response;
     my $request_hash = $query->gen_query;
-    $self->_req->content( encode_json( $request_hash ) );
+    $self->req->content( encode_json( $request_hash ) );
 
-    my $res = $self->_ua->request( $self->_req );
+    my $res = $self->ua->request( $self->req );
     if ($res->is_success) {
         eval {
             $response = decode_json($res->content) if $res->content ne "";
