@@ -1,11 +1,11 @@
 package Druid::Util;
 
+use strict;
+use warnings;
 use DateTime;
+use Exporter qw< import >;
 
 # Exporter settings
-require Exporter;
-our @ISA = qw(Exporter);
-our @EXPORT = qw();
 our @EXPORT_OK = qw(
     iso8601_yyyy_mm_dd_hh_mm_ss
     yyyy_mm_dd_hh_mm_ss_iso8601
