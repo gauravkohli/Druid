@@ -2,7 +2,6 @@ package Druid::Util;
 
 use strict;
 use warnings;
-use DateTime;
 use Exporter qw< import >;
 
 # Exporter settings
