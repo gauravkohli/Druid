@@ -6,9 +6,10 @@ use Hash::Merge qw( merge );
 
 sub query_type { 'topN' }
 
-sub gen_query {
+around 'gen_query' => sub {
+    my $orig = shift;
     my $self = shift;
-    my $request_hash =  $self->SUPER::gen_query();
+    my $request_hash =  $self->$orig(@_);
 
     my %topn_request_hash = (
         'dimension' => $self->{_dimension},
@@ -18,6 +19,6 @@ sub gen_query {
 
     return merge($request_hash, \%topn_request_hash);
 
-}
+};
 
 1;

@@ -6,9 +6,10 @@ use Hash::Merge qw( merge );
 
 sub query_type { 'groupBy' }
 
-sub gen_query {
+around 'gen_query' => sub {
+    my $orig = shift;
     my $self = shift;
-    my $request_hash =  $self->SUPER::gen_query();
+    my $request_hash =  $self->$orig(@_);
 
     my %groupby_request_hash = (
         'dimensions' => $self->{_group_by_dimensions},
@@ -17,6 +18,6 @@ sub gen_query {
 
     return merge($request_hash, \%groupby_request_hash);
 
-}
+};
 
 1;
