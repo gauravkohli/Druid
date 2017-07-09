@@ -2,7 +2,7 @@ package Druid;
 
 
 use Moo;
-use JSON;
+use JSON::MaybeXS qw(encode_json decode_json);
 use LWP::UserAgent;
 use HTTP::Request;
 use Druid::Util qw(iso8601_yyyy_mm_dd_hh_mm_ss);
