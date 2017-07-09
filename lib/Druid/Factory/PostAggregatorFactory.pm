@@ -2,7 +2,6 @@ package Druid::Factory::PostAggregatorFactory;
 use Moo;
 
 use Druid::PostAggregator::Arithmetic;
-use Druid::PostAggregator::Constant;
 use Druid::PostAggregator::FieldAccess;
 
 
