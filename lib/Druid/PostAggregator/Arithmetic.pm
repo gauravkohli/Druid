@@ -20,9 +20,8 @@ sub build {
         'ordering'  => $self->ordering,
     };
 
-    map {
-        push @{$aggregation->{'fields'}}, $_->build;
-    }  @{$self->fields};
+    push @{ $aggregation->{'fields'} }, $_->build
+        for @{ $self->fields };
 
     return $aggregation;
 }

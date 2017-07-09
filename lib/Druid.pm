@@ -48,9 +48,8 @@ sub send {
     if ($res->is_success) {
         eval {
             $response = decode_json($res->content) if $res->content ne "";
-            map {
-                $_->{'timestamp'} =  iso8601_yyyy_mm_dd_hh_mm_ss($_->{'timestamp'})
-            } @{$response};
+            $_->{'timestamp'} = iso8601_yyyy_mm_dd_hh_mm_ss( $_->{'timestamp'} )
+                for @{$response};
             1;
         } or do {
             $self->handle_error("500", "Parsing of the reponse failed");

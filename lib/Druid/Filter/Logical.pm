@@ -13,9 +13,8 @@ sub build {
         'fields' => []
     };
 
-    map {
-        push @{$filter->{'fields'}}, $_->build;
-    }  @{$self->fields};
+    push @{ $filter->{'fields'} }, $_->build
+        for @{ $self->fields };
 
 return $filter;
 }
