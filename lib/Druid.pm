@@ -76,7 +76,7 @@ __END__
 
 =head1 NAME
 
-PerlDruid - The great new PerlDruid!
+Druid - The great new perl client for Druid!
 
 =head1 VERSION
 
@@ -134,4 +134,4 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =cut
 
-1; # End of PerlDruid
+1; # End of Druid
