@@ -7,7 +7,7 @@ use LWP::UserAgent;
 use HTTP::Request;
 use Druid::Util qw(iso8601_yyyy_mm_dd_hh_mm_ss);
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 has 'api_url' => (
     'is' => 'ro',
@@ -79,16 +79,17 @@ __END__
 
 =head1 NAME
 
-PerlDruid - The great new PerlDruid!
+Druid - The great new perl client for Druid!
 
 =head1 VERSION
 
-Version 0.001
+Version 0.002
 
 =cut
 
-our $VERSION = '0.001';
 
+our $VERSION = '0.002';
+	
 =head1 AUTHOR
 
 Gaurav Kohli, C<< <gaurav.in at gmail.com> >>
@@ -137,4 +138,4 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =cut
 
-1; # End of PerlDruid
+1; # End of Druid
