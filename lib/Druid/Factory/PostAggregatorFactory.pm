@@ -2,7 +2,6 @@ package Druid::Factory::PostAggregatorFactory;
 use Moo;
 
 use Druid::PostAggregator::Arithmetic;
-use Druid::PostAggregator::Constant;
 use Druid::PostAggregator::FieldAccess;
 
 
@@ -11,11 +10,11 @@ sub arithmetic {
    my ( $name, $fn, $fields, $ordering) = @_;
 
    return Druid::PostAggregator::Arithmetic->new(
-		name	 =>	$name,
-		fn		 =>	$fn,
-		fields	 => $fields,
-		ordering => $ordering
-	);
+        name     => $name,
+        fn       => $fn,
+        fields   => $fields,
+        ordering => $ordering
+    );
 }
 
 sub fieldAccess {
@@ -23,9 +22,9 @@ sub fieldAccess {
    my ( $name, $fieldName) = @_;
 
    return Druid::PostAggregator::FieldAccess->new(
-		name	  => $name,
-		fieldName => $fieldName
-	);
+        name      => $name,
+        fieldName => $fieldName
+    );
 }
 
 1;

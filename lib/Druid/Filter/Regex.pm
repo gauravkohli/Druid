@@ -3,16 +3,16 @@ use Moo;
 
 extends 'Druid::Filter';
 
-sub type 	{ 'regex' }
-has pattern	=> (is => 'ro');
+sub type     { 'regex' }
+has pattern => (is => 'ro');
 
 sub build {
     my $self = shift;
 
     my $filter = {
-        'type' 		=> $self->type,
+        'type'      => $self->type,
         'dimension' => $self->dimension,
-        'pattern' 	=> $self->pattern,
+        'pattern'   => $self->pattern,
     };
 
     return $filter;

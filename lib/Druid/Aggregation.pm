@@ -3,8 +3,8 @@ package Druid::Aggregation;
 use Moo;
 
 has type        => (is  => 'ro');
-has name        => (is	=> 'ro');
-has fieldName   => (is	=> 'ro');
+has name        => (is  => 'ro');
+has fieldName   => (is  => 'ro');
 
 sub build {
     my $self = shift;

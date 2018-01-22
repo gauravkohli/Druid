@@ -7,7 +7,7 @@ use Druid::Aggregation;
 use Druid::PostAggregator;
 use Druid::LimitSpec;
 
-has query_type 	=> (is => 'ro');
+has query_type     => (is => 'ro');
 has data_source => (is => 'ro');
 
 sub granularity {
@@ -34,9 +34,9 @@ sub aggregation {
     my ($type, $name, $fieldName) = @_;
 
     my $aggregation = Druid::Aggregation->new(
-	   type        =>	$type,
-	   name        =>	$name,
-	   fieldName   =>	$fieldName
+       type        =>    $type,
+       name        =>    $name,
+       fieldName   =>    $fieldName
     );
 
     $self->{_aggregations} //= [];
@@ -69,8 +69,8 @@ sub interval {
     my $self = shift;
     my ($start, $end) = @_;
 
-    my $interval = Druid::Interval->new(start	=>	$start, end	=>	$end);
-   
+    my $interval = Druid::Interval->new(start => $start, end => $end);
+
     $self->{_intervals} //= [];
     push(@{ $self->{_intervals} }, $interval->build);
 
@@ -135,7 +135,7 @@ sub gen_query {
         'queryType'         => $self->query_type,
         'dataSource'        => $self->data_source,
         'granularity'       => $self->{_granularity},
-        'aggregations' 	    => $self->{_aggregations},
+        'aggregations'      => $self->{_aggregations},
         'postAggregations'  => $self->{_post_aggregations},
         'intervals'         => $self->{_intervals},
         'filter'            => $self->{_filters},

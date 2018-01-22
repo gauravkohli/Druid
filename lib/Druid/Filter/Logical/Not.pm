@@ -3,7 +3,7 @@ use Moo;
 
 extends 'Druid::Filter::Logical';
 
-sub type 	{ 'not' }
+sub type { 'not' }
 
 sub build {
     my $self = shift;
@@ -13,8 +13,8 @@ sub build {
     }
 
     my $filter = {
-        'type' 		=> $self->type,
-        'field'		=> @{$self->fields}[0]->build
+        'type'  => $self->type,
+        'field' => @{$self->fields}[0]->build
     };
 
     return $filter;
