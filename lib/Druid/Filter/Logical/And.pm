@@ -3,6 +3,6 @@ use Moo;
 
 extends 'Druid::Filter::Logical';
 
-sub type    { 'and' }
+sub type { 'and' }
 
 1;

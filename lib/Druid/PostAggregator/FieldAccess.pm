@@ -3,16 +3,16 @@ use Moo;
 
 extends 'Druid::PostAggregator';
 
-has fieldName	=> (is  => 'ro');
+has fieldName => (is  => 'ro');
 
-sub type 	{ 'fieldAccess' }
+sub type { 'fieldAccess' }
 
 sub build {
     my $self = shift;
 
     my $filter = {
-        'type' 		=> $self->type,
-        'name' 		=> $self->name,
+        'type'      => $self->type,
+        'name'      => $self->name,
         'fieldName' => $self->fieldName,
     };
 
