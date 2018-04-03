@@ -1,0 +1,17 @@
+^.idea
+^.git
+
+^blib/
+
+^.DS_Store
+^.project
+
+^Druid.iml
+^pm_to_blib
+ignore.txt
+Makefile.old
+MANIFEST\.
+
+lib/druid\.pl
+^Makefile$
+
